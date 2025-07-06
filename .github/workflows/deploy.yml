@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test:ci # Menjalankan Jest dalam mode non-interaktif
+        run: npm run test:ci # Menjalankan Jest dalam mode non-interaktif
 
   build-and-push:
     name: Build and Push Docker Image
