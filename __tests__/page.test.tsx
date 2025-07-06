@@ -1,41 +1,39 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Home from "../app/page";
 
-describe("Home Page", () => {
-  // Test 1: Memastikan semua elemen awal ter-render dengan benar
-  it("should render initial profile data and welcome message", () => {
+// Deskripsikan grup tes untuk halaman utama yang sudah didesain ulang
+describe("Redesigned Home Page", () => {
+  // Tes ini akan memeriksa apakah semua elemen kunci dari desain baru berhasil di-render
+  it("should render the new components and text correctly", () => {
+    // Render komponen Home
     render(<Home />);
 
-    // Cari teks berdasarkan nama, nim, dan institusi
-    expect(screen.getByText("Dena Kamal D.")).toBeInTheDocument();
-    expect(screen.getByText("NIM: 2206090")).toBeInTheDocument();
-    expect(screen.getByText("Institut Teknologi Garut")).toBeInTheDocument();
+    // 1. Periksa apakah nama utama ada di dalam sebuah heading
+    // Ini lebih baik daripada getByText karena lebih spesifik secara semantik
+    const mainHeading = screen.getByRole("heading", { name: /Dena Kamal D./i });
+    expect(mainHeading).toBeInTheDocument();
 
-    // Cari tombol dengan teks awal
-    expect(
-      screen.getByRole("button", { name: /Sukai Halaman Ini 👍 \(0\)/i })
-    ).toBeInTheDocument();
-  });
+    // 2. Periksa apakah badge deskripsi ada
+    const badgeElement = screen.getByText(
+      /Full-Stack Developer & AI Enthusiast/i
+    );
+    expect(badgeElement).toBeInTheDocument();
 
-  // Test 2: Mensimulasikan klik pada tombol dan memeriksa apakah state berubah
-  it("should increment likes when the button is clicked", () => {
-    render(<Home />);
+    // 3. Periksa apakah informasi NIM dan institusi ada
+    const institutionText = screen.getByText(
+      /2206090 - Institut Teknologi Garut/i
+    );
+    expect(institutionText).toBeInTheDocument();
 
-    // Dapatkan tombolnya
-    const likeButton = screen.getByRole("button", {
-      name: /Sukai Halaman Ini/i,
-    });
+    // 4. Periksa apakah tombol-tombol baru dari Shadcn/ui sudah ada
+    // Kita tidak lagi mencari tombol 'Sukai', tetapi tombol aksi yang relevan
+    const emailButton = screen.getByRole("button", { name: /kontak email/i });
+    expect(emailButton).toBeInTheDocument();
 
-    // Klik tombolnya sekali
-    fireEvent.click(likeButton);
+    const githubButton = screen.getByRole("button", { name: /github/i });
+    expect(githubButton).toBeInTheDocument();
 
-    // Periksa apakah jumlah suka bertambah menjadi 1
-    expect(screen.getByText(/Sukai Halaman Ini 👍 \(1\)/i)).toBeInTheDocument();
-
-    // Klik tombolnya lagi
-    fireEvent.click(likeButton);
-
-    // Periksa apakah jumlah suka bertambah menjadi 2
-    expect(screen.getByText(/Sukai Halaman Ini 👍 \(2\)/i)).toBeInTheDocument();
+    const linkedinButton = screen.getByRole("button", { name: /linkedin/i });
+    expect(linkedinButton).toBeInTheDocument();
   });
 });
