@@ -21,7 +21,8 @@ describe("Home Page", () => {
     expect(screen.getByText("Full-Stack Developer & AI Prompter Expert")).toBeInTheDocument();
 
     // Check if student info exists
-    expect(screen.getByText(/2206090.*Institut Teknologi Garut/)).toBeInTheDocument();
+    expect(screen.getByText("2206090")).toBeInTheDocument();
+    expect(screen.getByText("Institut Teknologi Garut")).toBeInTheDocument();
 
     // Check if description exists
     expect(screen.getByText(/Mahasiswa proaktif/)).toBeInTheDocument();
