@@ -20,9 +20,12 @@ describe("Redesigned Home Page", () => {
     expect(badgeElement).toBeInTheDocument();
 
     // 3. Periksa apakah informasi NIM dan institusi ada
-    const institutionText = screen.getByText(
-      /2206090 - Institut Teknologi Garut/i
-    );
+    const institutionText = screen.getByText((content, element) => {
+      // textContent akan menggabungkan teks dari semua elemen anak
+      const elementText = element?.textContent || "";
+      // Kita gunakan regex untuk mencocokkan pola dan mengabaikan spasi berlebih
+      return /2206090\s+-\s+Institut Teknologi Garut/i.test(elementText);
+    });
     expect(institutionText).toBeInTheDocument();
 
     // 4. Periksa apakah tombol-tombol baru dari Shadcn/ui sudah ada
