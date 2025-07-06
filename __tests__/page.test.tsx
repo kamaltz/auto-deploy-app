@@ -15,7 +15,7 @@ describe("Redesigned Home Page", () => {
 
     // 2. Periksa apakah badge deskripsi ada
     const badgeElement = screen.getByText(
-      /Full-Stack Developer & AI Enthusiast/i
+      /Full-Stack Developer & AI Prompter Expert/i
     );
     expect(badgeElement).toBeInTheDocument();
 
