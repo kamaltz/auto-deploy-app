@@ -2,12 +2,32 @@ name: CI/CD Pipeline to Kubernetes
 
 on:
   push:
-    branches: ["main"] # Memicu workflow saat ada push ke branch main
+    branches: ["main"]
 
 jobs:
+  run-tests:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test -- --ci # Menjalankan Jest dalam mode non-interaktif
+
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    needs: run-tests # <-- PENTING: Job ini hanya berjalan jika 'run-tests' sukses
 
     steps:
       - name: Checkout code
@@ -24,12 +44,12 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest # Ganti 'nextjs-k8s-app' jika perlu
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest
 
   deploy-to-vps:
     name: Deploy to Kubernetes on VPS
-    needs: build-and-push # Jalankan job ini setelah build-and-push selesai
     runs-on: ubuntu-latest
+    needs: build-and-push # Job ini berjalan setelah build-and-push sukses
 
     steps:
       - name: Deploy to VPS
@@ -39,9 +59,6 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
-            # Perintah yang akan dijalankan di VPS
             echo "Deploying to Kubernetes..."
-            # Perintahkan Kubernetes untuk memperbarui image pada deployment yang ada
-            # Pastikan 'nextjs-deployment' sesuai dengan nama deployment Anda di Kubernetes
             kubectl set image deployment/nextjs-deployment nextjs-app=${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest --record
             echo "Deployment triggered."
