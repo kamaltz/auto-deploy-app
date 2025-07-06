@@ -18,6 +18,7 @@ export default function Home() {
           <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>
             Dena Kamal D.
           </h1>
+          <h2>Progammer Malas</h2>
           <h2>NIM: 2206090</h2>
           <h3>Institut Teknologi Garut</h3>
         </div>
