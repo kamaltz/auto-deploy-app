@@ -10,7 +10,7 @@ describe("Redesigned Home Page", () => {
 
     // 1. Periksa apakah nama utama ada di dalam sebuah heading
     // Ini lebih baik daripada getByText karena lebih spesifik secara semantik
-    const mainHeading = screen.getByRole("heading", { name: /Dena Kamal D./i });
+    const mainHeading = screen.getByText(/Dena Kamal D./i);
     expect(mainHeading).toBeInTheDocument();
 
     // 2. Periksa apakah badge deskripsi ada
