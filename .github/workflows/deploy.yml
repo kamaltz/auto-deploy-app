@@ -2,7 +2,7 @@ name: CI/CD Pipeline to Kubernetes
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
   run-tests:
