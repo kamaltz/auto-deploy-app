@@ -2,7 +2,7 @@ name: CI/CD Pipeline to Kubernetes
 
 on:
   push:
-    branches: [ "main" ] # Memicu workflow saat ada push ke branch main
+    branches: ["main"] # Memicu workflow saat ada push ke branch main
 
 jobs:
   build-and-push:
