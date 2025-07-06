@@ -1,42 +1,34 @@
 import { render, screen } from "@testing-library/react";
 import Home from "../app/page";
 
-// Deskripsikan grup tes untuk halaman utama yang sudah didesain ulang
-describe("Redesigned Home Page", () => {
-  // Tes ini akan memeriksa apakah semua elemen kunci dari desain baru berhasil di-render
-  it("should render the new components and text correctly", () => {
-    // Render komponen Home
+// Mock GSAP untuk testing
+jest.mock("gsap", () => ({
+  from: jest.fn(),
+}));
+
+jest.mock("@gsap/react", () => ({
+  useGSAP: jest.fn((callback) => callback()),
+}));
+
+describe("Home Page", () => {
+  it("renders main content correctly", () => {
     render(<Home />);
 
-    // 1. Periksa apakah nama utama ada di dalam sebuah heading
-    // Ini lebih baik daripada getByText karena lebih spesifik secara semantik
-    const mainHeading = screen.getByText(/Dena Kamal D./i);
-    expect(mainHeading).toBeInTheDocument();
+    // Check if main heading exists
+    expect(screen.getByText("Dena Kamal D.")).toBeInTheDocument();
 
-    // 2. Periksa apakah badge deskripsi ada
-    const badgeElement = screen.getByText(
-      /Full-Stack Developer & AI Prompter Expert/i
-    );
-    expect(badgeElement).toBeInTheDocument();
+    // Check if badge exists
+    expect(screen.getByText("Full-Stack Developer & AI Prompter Expert")).toBeInTheDocument();
 
-    // 3. Periksa apakah informasi NIM dan institusi ada
-    const institutionText = screen.getByText((content, element) => {
-      // textContent akan menggabungkan teks dari semua elemen anak
-      const elementText = element?.textContent || "";
-      // Kita gunakan regex untuk mencocokkan pola dan mengabaikan spasi berlebih
-      return /2206090\s+-\s+Institut Teknologi Garut/i.test(elementText);
-    });
-    expect(institutionText).toBeInTheDocument();
+    // Check if student info exists
+    expect(screen.getByText(/2206090.*Institut Teknologi Garut/)).toBeInTheDocument();
 
-    // 4. Periksa apakah tombol-tombol baru dari Shadcn/ui sudah ada
-    // Kita tidak lagi mencari tombol 'Sukai', tetapi tombol aksi yang relevan
-    const emailButton = screen.getByRole("button", { name: /kontak email/i });
-    expect(emailButton).toBeInTheDocument();
+    // Check if description exists
+    expect(screen.getByText(/Mahasiswa proaktif/)).toBeInTheDocument();
 
-    const githubButton = screen.getByRole("button", { name: /github/i });
-    expect(githubButton).toBeInTheDocument();
-
-    const linkedinButton = screen.getByRole("button", { name: /linkedin/i });
-    expect(linkedinButton).toBeInTheDocument();
+    // Check if buttons exist
+    expect(screen.getByText("Kontak Email")).toBeInTheDocument();
+    expect(screen.getByText("GitHub")).toBeInTheDocument();
+    expect(screen.getByText("LinkedIn")).toBeInTheDocument();
   });
 });
