@@ -49,7 +49,11 @@ export default function Home() {
       <Card className="w-full max-w-2xl bg-slate-900/60 border-slate-700 backdrop-blur-sm z-10 reveal">
         <CardHeader>
           <div className="flex items-center space-x-4">
-            <UserCircle size={48} className="text-sky-400" />
+            <img
+              src="/profile.jpg"
+              alt="Profile"
+              className="w-12 h-12 rounded-full border-2 border-sky-400 object-cover"
+            />
             <div>
               <CardTitle className="text-3xl font-bold text-white reveal">
                 Dena Kamal D.
@@ -58,7 +62,7 @@ export default function Home() {
                 variant="outline"
                 className="border-sky-400 text-sky-400 mt-2 reveal"
               >
-                Vibe Coding Developer & AI Prompter Expert
+                Vibe Developer & AI Prompter Expert
               </Badge>
             </div>
           </div>
@@ -67,7 +71,7 @@ export default function Home() {
           <div className="space-y-4">
             <div className="flex items-center space-x-3 reveal">
               <GraduationCap className="text-slate-400" />
-              <p>
+              <p className="text-white">
                 <span className="font-semibold">2206090</span> - Institut
                 Teknologi Garut
               </p>
