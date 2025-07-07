@@ -44,7 +44,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:${{ github.sha }}
 
   deploy-to-vps:
     name: Deploy to Kubernetes on VPS
@@ -60,7 +62,8 @@ jobs:
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
             echo "Deploying to Kubernetes..."
-            kubectl apply -f k8s/deployment.yaml
+            kubectl apply -f /root/k3s/k8s-deployment-simple.yml
             kubectl set image deployment/nextjs-deployment nextjs-app=${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest
+            kubectl rollout restart deployment/nextjs-deployment
             kubectl rollout status deployment/nextjs-deployment --timeout=300s
             echo "Deployment completed successfully."

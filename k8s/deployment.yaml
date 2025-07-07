@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nextjs-deployment
-  labels:
-    app: nextjs-app
 spec:
   replicas: 2
   selector:
@@ -16,13 +14,13 @@ spec:
     spec:
       containers:
       - name: nextjs-app
-        image: YOUR_DOCKERHUB_USERNAME/nextjs-k8s-app:latest
+        image: kamaltz/nextjs-k8s-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
-        env:
-        - name: NODE_ENV
-          value: "production"
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,4 +32,30 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  type: LoadBalancer
+  type: ClusterIP
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextjs-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - auto.kamaltz.fun
+    secretName: auto-kamaltz-fun-tls
+  rules:
+  - host: auto.kamaltz.fun
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextjs-service
+            port:
+              number: 80
