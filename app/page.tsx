@@ -58,7 +58,7 @@ export default function Home() {
                 variant="outline"
                 className="border-sky-400 text-sky-400 mt-2 reveal"
               >
-                Full-Stack Developer & AI Prompter Expert
+                Vibe Coding Developer & AI Prompter Expert
               </Badge>
             </div>
           </div>
