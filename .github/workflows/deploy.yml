@@ -60,5 +60,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
             echo "Deploying to Kubernetes..."
-            kubectl set image deployment/nextjs-deployment nextjs-app=${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest --record
-            echo "Deployment triggered."
+            kubectl apply -f k8s/deployment.yaml
+            kubectl set image deployment/nextjs-deployment nextjs-app=${{ secrets.DOCKERHUB_USERNAME }}/nextjs-k8s-app:latest
+            kubectl rollout status deployment/nextjs-deployment --timeout=300s
+            echo "Deployment completed successfully."
