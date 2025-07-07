@@ -62,7 +62,7 @@ export default function Home() {
                 variant="outline"
                 className="border-sky-400 text-sky-400 mt-2 reveal"
               >
-                Vibe Developer & AI Prompter Expert
+                Vibe Coding Developer & AI Prompter Expert
               </Badge>
             </div>
           </div>
@@ -77,29 +77,50 @@ export default function Home() {
               </p>
             </div>
             <p className="text-slate-300 reveal">
-              Mahasiswa proaktif dengan semangat dalam pengembangan perangkat
-              lunak modern, fokus pada solusi inovatif menggunakan Next.js,
-              TypeScript, dan Python.
+              Mahasiswa IT Enthusiast dengan semangat membara berapi-api dalam
+              development software modern, fokus pada solusi inovatif
+              menggunakan berbagai stack teknologi pada web development dengan
+              bantuan "Budak AI".
             </p>
             <div className="flex flex-wrap gap-3 pt-4 reveal">
-              <Button
-                variant="outline"
-                className="border-slate-600 hover:bg-slate-800 hover:text-white"
+              <a
+                href="mailto:camvr35@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Mail className="mr-2 h-4 w-4" /> Kontak Email
-              </Button>
-              <Button
-                variant="outline"
-                className="border-slate-600 hover:bg-slate-800 hover:text-white"
+                <Button
+                  variant="outline"
+                  className="border-slate-600 hover:bg-slate-800 hover:text-white"
+                >
+                  <Mail className="mr-2 h-4 w-4" /> Kontak Email
+                </Button>
+              </a>
+
+              <a
+                href="https://github.com/kamaltz"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Github className="mr-2 h-4 w-4" /> GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="border-slate-600 hover:bg-slate-800 hover:text-white"
+                <Button
+                  variant="outline"
+                  className="border-slate-600 hover:bg-slate-800 hover:text-white"
+                >
+                  <Github className="mr-2 h-4 w-4" /> GitHub
+                </Button>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/dena-kamal/"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
-              </Button>
+                <Button
+                  variant="outline"
+                  className="border-slate-600 hover:bg-slate-800 hover:text-white"
+                >
+                  <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
+                </Button>
+              </a>
             </div>
           </div>
         </CardContent>
